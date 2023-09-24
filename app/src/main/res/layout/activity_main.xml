@@ -81,10 +81,14 @@
         android:textSize="60sp"
         android:gravity="end"
         android:inputType="numberDecimal"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/h_guideline1" />
+        app:layout_constraintBottom_toTopOf="@+id/h_guideline1"
+        android:importantForAutofill="no"/>
 
     <!-- Buttons -->
     <Button

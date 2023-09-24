@@ -56,10 +56,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun onOperatorButtonClick(button: Button) {
         if (currentInput.isNotEmpty()) {
+            if (currentOperator.isNotEmpty()) {
+                // Chaining operations
+                onEqualButtonClick()
+            }
+
             currentOperator = button.text.toString()
-            result = currentInput.toDouble()
-            currentInput = ""
-            editText.setText(currentOperator)
+
+            if (currentOperator == "√") {
+                result = sqrt(currentInput.toDouble())
+                // change the currentInput to result so we can do further operations
+                currentInput = result.toString()
+                editText.setText(currentInput)
+                currentOperator = "" // reset operator
+            } else {
+                result = currentInput.toDouble()
+                currentInput = ""
+                editText.setText(currentOperator)
+            }
+        } else {
+            Toast.makeText(this, "Please enter a number first.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -68,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             val secondOperand = currentInput.toDouble()
             try {
                 result = performOperation(result, secondOperand, currentOperator)
-                currentInput = ""
+                currentInput = result.toString()
                 currentOperator = ""
                 editText.setText(result.toString())
             } catch (e: ArithmeticException) {
@@ -99,7 +115,7 @@ fun performOperation(operand1: Double, operand2: Double, operator: String): Doub
                 throw ArithmeticException("Cannot divide by zero")
             }
         }
-        "√" -> sqrt(operand1)
         else -> throw IllegalArgumentException("Invalid operator: $operator")
     }
 }
+
